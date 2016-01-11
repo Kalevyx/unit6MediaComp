@@ -281,12 +281,63 @@ public class Picture extends SimplePicture
             row++)
         {
             for(int col = 0;
-                col < pixels.length;
+                col < pixels[0].length;
                 col++)
             {
                 topPixel = pixels[row][col];
-                bottomPixel = pixels[height-1-col][row];
+                bottomPixel = pixels[height-1-row][col];
                 bottomPixel.setColor(topPixel.getColor());
+            }
+        }
+    }
+    
+    public void mirrorHorizontalBotToTop()
+    {
+        Pixel[][] pixels = this.getPixels2D();
+        Pixel topPixel = null;
+        Pixel bottomPixel = null;
+        int height = pixels.length;
+        for(int row = 0;
+            row < height/2;
+            row++)
+        {
+            for(int col = 0;
+                col < pixels[0].length;
+                col++)
+            {
+                topPixel = pixels[row][col];
+                bottomPixel = pixels[height-1-row][col];
+                topPixel.setColor(bottomPixel.getColor());
+            }
+        }
+    }
+    
+    public void mirrorDiagonal()
+    {
+        Pixel[][] pixels = this.getPixels2D();
+        Pixel topPixel = null;
+        Pixel bottomPixel = null;
+        int shorter;
+        if(pixels.length<pixels[0].length)
+        {
+            shorter = pixels.length;
+        }
+        else
+        {
+            shorter = pixels[0].length;
+        }
+        
+        for(int row = 0;
+            row < shorter-1;
+            row++)
+        {
+            for(int col = 0;
+                col < row;
+                col++)
+            {
+                topPixel = pixels[row][col];
+                bottomPixel = pixels[shorter-1-row][shorter-1-col];
+                topPixel.setColor(bottomPixel.getColor());
             }
         }
     }
