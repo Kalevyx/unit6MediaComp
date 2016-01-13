@@ -82,7 +82,6 @@ public class Picture extends SimplePicture
           " height " + getHeight() 
           + " width " + getWidth();
         return output;
-    
     }
   
     /** Method to set the blue to 0 */
@@ -97,7 +96,53 @@ public class Picture extends SimplePicture
             }
         }
     }
-  
+    
+    public void keepOnlyBlue()
+    {
+        Pixel[][] pixels = this.getPixels2D();
+        for (Pixel[] rowArray : pixels)
+        {
+            for (Pixel pixelObj : rowArray)
+            {
+                pixelObj.setRed(0);
+                pixelObj.setGreen(0);
+            }
+        }
+    }
+    
+    public void negate()
+    {
+        Pixel[][] pixels = this.getPixels2D();
+        for (Pixel[] rowArray : pixels)
+        {
+            for (Pixel pixelObj : rowArray)
+            {
+                pixelObj.setRed(255-pixelObj.getRed());
+                pixelObj.setGreen(255-pixelObj.getGreen());
+                pixelObj.setBlue(255-pixelObj.getBlue());
+            }
+        }
+    }
+    
+    public void grayscale()
+    {
+        Pixel[][] pixels = this.getPixels2D();
+        for (Pixel[] rowArray : pixels)
+        {
+            for (Pixel pixelObj : rowArray)
+            {
+                pixelObj.setRed((pixelObj.getRed()+pixelObj.getGreen()+pixelObj.getBlue())/3);
+                pixelObj.setGreen((pixelObj.getRed()+pixelObj.getGreen()+pixelObj.getBlue())/3);
+                pixelObj.setBlue((pixelObj.getRed()+pixelObj.getGreen()+pixelObj.getBlue())/3);
+            }
+        }
+    }
+    
+    public void fixUnderwater()
+    {
+        
+    }
+    
     /** Method that mirrors the picture around a 
       * vertical mirror in the center of the picture
       * from left to right */
@@ -218,8 +263,7 @@ public class Picture extends SimplePicture
                     leftPixel.setColor(Color.WHITE);
             }
         }
-      }
-      
+    }
       
     /* Main method for testing - each class in Java can have a main 
      * method 
@@ -365,4 +409,35 @@ public class Picture extends SimplePicture
             }
         }
     }
+    
+    public void mirrorGull()
+    {
+        Pixel[][] pixels = this.getPixels2D();
+        Pixel topPixel = null;
+        Pixel bottomPixel = null;
+        //left col - 238
+        //right col - 343
+        //top row - 235
+        //bottom row - 319
+        for(int row = 235;
+            row < 319;
+            row++)
+        {
+            for(int col = 238;
+                col < 343;
+                col++)
+            {
+                topPixel = pixels[row][col];
+                bottomPixel = pixels[row][345 - col + 345];
+                bottomPixel.setColor(topPixel.getColor());
+            }
+        }
+    }
+    
+    public void cropAndCopy(Picture sourcePicture, int startSourceRow, int endSourceRow, int startSourceCol,
+                            int endSourceCol, int startDestRow, int startDestCol)
+    {
+        
+    }
+    
 } // this } is the end of class Picture, put all new methods before this
