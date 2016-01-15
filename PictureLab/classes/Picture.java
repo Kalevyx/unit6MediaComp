@@ -131,9 +131,10 @@ public class Picture extends SimplePicture
         {
             for (Pixel pixelObj : rowArray)
             {
-                pixelObj.setRed((pixelObj.getRed()+pixelObj.getGreen()+pixelObj.getBlue())/3);
-                pixelObj.setGreen((pixelObj.getRed()+pixelObj.getGreen()+pixelObj.getBlue())/3);
-                pixelObj.setBlue((pixelObj.getRed()+pixelObj.getGreen()+pixelObj.getBlue())/3);
+                int gray = (pixelObj.getRed()+pixelObj.getGreen()+pixelObj.getBlue())/3;
+                pixelObj.setRed(gray);
+                pixelObj.setGreen(gray);
+                pixelObj.setBlue(gray);
             }
         }
     }
@@ -437,7 +438,22 @@ public class Picture extends SimplePicture
     public void cropAndCopy(Picture sourcePicture, int startSourceRow, int endSourceRow, int startSourceCol,
                             int endSourceCol, int startDestRow, int startDestCol)
     {
+        Pixel sourcePixel = null;
+        Pixel endPixel = null;
         
+        for(int i = startSourceRow, x = startDestRow;
+            i < endSourceRow && x < this.getHeight();
+            i++, x++)
+        {
+            for(int j = startSourceCol, y = startDestCol;
+                j < endSourceCol && y < this.getWidth();
+                j++, y++)
+            {
+                sourcePixel = sourcePicture.getPixel(i,j);
+                endPixel = this.getPixel(x,y);
+                endPixel.setColor(sourcePixel.getColor());
+            }
+        }
     }
     
 } // this } is the end of class Picture, put all new methods before this

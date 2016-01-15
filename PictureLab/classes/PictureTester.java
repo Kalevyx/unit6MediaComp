@@ -133,6 +133,10 @@ public class PictureTester
     
     public static void testCropAndCopy()
     {
+        Picture water = new Picture("water.jpg");
+        Picture flower = new Picture("whiteFlower.jpg");
+        flower.cropAndCopy(water, 10, 100, 20, 200, 30, 40);
+        flower.explore();
     }
     
     /** Main method for testing.  Every class can have a main
