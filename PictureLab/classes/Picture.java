@@ -225,7 +225,7 @@ public class Picture extends SimplePicture
     /** Method to create a collage of several pictures */
     public void createCollage()
     {
-        Picture flower1 = new Picture("flower1.jpg");
+        /*Picture flower1 = new Picture("flower1.jpg");
         Picture flower2 = new Picture("flower2.jpg");
         this.copy(flower1,0,0);
         this.copy(flower2,100,0);
@@ -236,9 +236,10 @@ public class Picture extends SimplePicture
         this.copy(flower1,400,0);
         this.copy(flower2,500,0);
         this.mirrorVertical();
-        this.write("collage.jpg");
+        this.write("collage.jpg");*/
+        
+        Picture canvas = new Picture(500,500);
     }
-      
       
     /** Method to show large changes in color 
         * @param edgeDist the distance for finding edges
@@ -257,7 +258,7 @@ public class Picture extends SimplePicture
                 leftPixel = pixels[row][col];
                 rightPixel = pixels[row][col+1];
                 rightColor = rightPixel.getColor();
-                if (leftPixel.colorDistance(rightColor) > 
+                if(leftPixel.colorDistance(rightColor) > 
                 edgeDist)
                     leftPixel.setColor(Color.BLACK);
                 else
