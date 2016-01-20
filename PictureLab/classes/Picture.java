@@ -25,7 +25,7 @@ public class Picture extends SimplePicture
         /* not needed but use it to show students the implicit call to super()
         * child constructors always call a parent constructor 
         */
-        super();  
+        super();
     }
   
     /**
@@ -237,8 +237,16 @@ public class Picture extends SimplePicture
         this.copy(flower2,500,0);
         this.mirrorVertical();
         this.write("collage.jpg");*/
-        
-        Picture canvas = new Picture(500,500);
+       
+        Picture translucent = new Picture("Translucent.jpg");
+        //this.copy(translucent,0,0);
+        //this.copy(translucent,0,728);
+        //this.copy(translucent,409,728);
+        this.copy(translucent,409,0);
+        Picture translucent2 = new Picture(translucent);
+        translucent2.mirrorVertical();
+        translucent2.negate();
+        this.copy(translucent2,0,728);
     }
       
     /** Method to show large changes in color 
