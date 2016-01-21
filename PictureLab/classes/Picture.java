@@ -97,6 +97,30 @@ public class Picture extends SimplePicture
         }
     }
     
+    public void zeroRed()
+    {
+        Pixel[][] pixels = this.getPixels2D();
+        for (Pixel[] rowArray : pixels)
+        {
+            for (Pixel pixelObj : rowArray)
+            {
+                pixelObj.setRed(0);
+            }
+        }
+    }
+    
+    public void zeroGreen()
+    {
+        Pixel[][] pixels = this.getPixels2D();
+        for (Pixel[] rowArray : pixels)
+        {
+            for (Pixel pixelObj : rowArray)
+            {
+                pixelObj.setGreen(0);
+            }
+        }
+    }
+    
     public void keepOnlyBlue()
     {
         Pixel[][] pixels = this.getPixels2D();
@@ -141,7 +165,6 @@ public class Picture extends SimplePicture
     
     public void fixUnderwater()
     {
-        
     }
     
     /** Method that mirrors the picture around a 
@@ -225,28 +248,51 @@ public class Picture extends SimplePicture
     /** Method to create a collage of several pictures */
     public void createCollage()
     {
-        /*Picture flower1 = new Picture("flower1.jpg");
-        Picture flower2 = new Picture("flower2.jpg");
-        this.copy(flower1,0,0);
-        this.copy(flower2,100,0);
-        this.copy(flower1,200,0);
-        Picture flowerNoBlue = new Picture(flower2);
-        flowerNoBlue.zeroBlue();
-        this.copy(flowerNoBlue,300,0);
-        this.copy(flower1,400,0);
-        this.copy(flower2,500,0);
-        this.mirrorVertical();
-        this.write("collage.jpg");*/
+        /* Original Example
+         * Picture flower1 = new Picture("flower1.jpg");
+         * Picture flower2 = new Picture("flower2.jpg");
+         * this.copy(flower1,0,0);
+         * this.copy(flower2,100,0);
+         * this.copy(flower1,200,0);
+         * Picture flowerNoBlue = new Picture(flower2);
+         * flowerNoBlue.zeroBlue();
+         * this.copy(flowerNoBlue,300,0);
+         * this.copy(flower1,400,0);
+         * this.copy(flower2,500,0);
+         * this.mirrorVertical();
+         * this.write("collage.jpg");*/
        
-        Picture translucent = new Picture("Translucent.jpg");
-        //this.copy(translucent,0,0);
-        //this.copy(translucent,0,728);
-        //this.copy(translucent,409,728);
-        this.copy(translucent,409,0);
-        Picture translucent2 = new Picture(translucent);
+        Picture translucent = new Picture("Translucent.jpg"); //Top left
+        Picture translucent2 = new Picture(translucent); //Top right
+        Picture translucent3 = new Picture(translucent); //Bottom left
+        Picture translucent4 = new Picture(translucent); //Bottom right
+        /* Coordinate points
+         * this.copy(translucent,0,0);
+         * this.copy(translucent,0,728);
+         * this.copy(translucent,409,0);
+         * this.copy(translucent,409,728);
+        */
+        
+        translucent.mirrorHorizontalBotToTop();
+        translucent.mirrorVertical();
+        
+        translucent2.mirrorHorizontalBotToTop();
         translucent2.mirrorVertical();
-        translucent2.negate();
+        translucent2.zeroBlue();
+        translucent2.zeroGreen();
+        
+        translucent3.mirrorHorizontalBotToTop();
+        translucent3.mirrorVertical();
+        translucent3.zeroBlue();
+        
+        translucent4.mirrorHorizontalBotToTop();
+        translucent4.mirrorVertical();
+        translucent4.grayscale();
+        
+        this.copy(translucent,0,0);
         this.copy(translucent2,0,728);
+        this.copy(translucent3,409,0);
+        this.copy(translucent4,409,728);
     }
       
     /** Method to show large changes in color 
